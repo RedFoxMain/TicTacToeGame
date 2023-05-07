@@ -1,7 +1,7 @@
 //Сделано RedFoxMain 
 //Git hub: https://github.com/RedFoxMain
 
-//Если вы используете Linux вам следует закоментировать первую строку.
+//Если вы используете Linux вам следует закомментировать первую строку.
 #define WINDOWS
 
 #include <iostream>

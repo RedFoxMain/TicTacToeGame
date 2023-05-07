@@ -2,6 +2,7 @@
 //Git hub: https://github.com/RedFoxMain
 
 //Если вы используете Linux вам следует закомментировать первую строку.
+//Если работаете на Windows, то ничего трогать не надо.
 #define WINDOWS
 
 #include <iostream>

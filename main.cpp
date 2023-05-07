@@ -10,7 +10,7 @@
 #include <cstdlib>
 #include <stdlib.h>
 
-#ifdef WINDOWS
+#ifndef WINDOWS
 #include<windows.h>
 #else
 #include<unistd.h>
@@ -88,7 +88,7 @@ void DrawPlace(int player,char icon, int x, int y){
 }
 	
 	partOfMap += 1;
-	#ifdef WINDOWS
+	#ifndef WINDOWS
 		system("cls");
 	#else
 		system("clear");

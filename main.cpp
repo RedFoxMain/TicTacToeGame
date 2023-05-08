@@ -3,7 +3,7 @@
 
 //Если вы используете Linux вам следует закомментировать 6 строку.
 //Если работаете на Windows, то ничего трогать не надо.
-#define WINDOWS
+ #define WINDOWS
 
 #include <iostream>
 #include <string>
@@ -18,21 +18,34 @@
 
 
 using namespace std;
-
+// переменные для игры
+//длинна карты
+int length = 3;
+//карта
 char map[3][3];
+//чем заполнять карту
+char mapSymbol = '#';
+//иконки первого и второго игрока
+char firstPlayerIcon = 'x';
+char secondPlayerIcon = 'o';
 int badPlace = 0;
-int partOfMap = 0;
+int countPartOfMap = 0;
+bool win = false;
+char playerIcon;
+int player = 1;
+int row,col;
+bool ckeckIfWin;
 
 // Эта функция отрисовывать поле(для красоты)
 void DrawPlaceForMenu(){
-	int length = 3;
 	for(int i = 0; i < length; i++)
 	{
 		for(int j = 0; j < length; j++)
 		    {
-		   	 map[i][j] = '#';
+		   	 map[i][j] = mapSymbol;
 		    }
 	}
+	
 	for(int i = 0; i < length; i++)
 	    {
 	   	 for(int j = 0; j < length; j++)
@@ -44,37 +57,31 @@ void DrawPlaceForMenu(){
 	    }
 }
 
-
 ///////////////////
-
 //Я надеюсь вы ещё не повесились.
 //Эта функция отслеживает в каких яцейках находится "х" и "о"
 bool WinState(int player){
-	bool win = false;
-	char icon;
 	if(player == 1){
-		icon = 'x';
+		playerIcon = firstPlayerIcon;
 	}
 	else{
-		icon = 'o';
+		playerIcon = secondPlayerIcon;
 	}
-	if((map[0][0] == icon && map[0][1] == icon && map[0][2] == icon) || (map[1][0] == icon && map[1][1] == icon && map[1][2] == icon) || (map[2][0] == icon && map[2][1] == icon && map[2][2] == icon) || (map[0][0] == icon && map[1][0] == icon && map[2][0] == icon) || (map[0][1] == icon && map[1][1] == icon && map[2][1] == icon) || (map[0][2] == icon && map[1][2] == icon && map[2][2] == icon) || (map[0][0] == icon && map[1][1] == icon && map[2][2] == icon) || (map[0][2] == icon && map[1][1] == icon && map[2][0] == icon)){
-			
+	//Здесь происходит очень важная проверка, но как она работает долго рассказывать.
+	if((map[0][0] == playerIcon && map[0][1] == playerIcon && map[0][2] == playerIcon) || (map[1][0] == playerIcon && map[1][1] == playerIcon && map[1][2] == playerIcon) || (map[2][0] == playerIcon && map[2][1] == playerIcon && map[2][2] == playerIcon) || (map[0][0] == playerIcon && map[1][0] == playerIcon && map[2][0] == playerIcon) || (map[0][1] == playerIcon && map[1][1] == playerIcon && map[2][1] == playerIcon) || (map[0][2] == playerIcon && map[1][2] == playerIcon && map[2][2] == playerIcon) || (map[0][0] == playerIcon && map[1][1] == playerIcon && map[2][2] == playerIcon) || (map[0][2] == playerIcon && map[1][1] == playerIcon && map[2][0] == playerIcon)){
 		    printf("\033[31m");
 			cout << "Игрок номер "<< player<< " закончил партию быстрее!" << endl;
 			cout << "Победа игрока номер "<< player << endl;
-			printf("\033[0m\n");
+			printf("\033[0m");
 			win = true;
 		}
 	return win;
 }
 
 // Эта функция уже отрисовывает игровое поле
-void DrawPlace(int player,char icon, int x, int y){
-	
-	int length = 3;
-	if (map[x][y] == '#'){
-		map[x][y] = icon;
+void DrawPlace(int player,char playerIcon, int row, int col){
+	if (map[row][col] == mapSymbol){
+		map[row][col] = playerIcon;
 	}else{
 		if (player == 1){
 			badPlace = 1;
@@ -84,10 +91,10 @@ void DrawPlace(int player,char icon, int x, int y){
 		//Окрашиваем текст
 		printf("\033[31mКлетка занята!\n");
 		sleep(2);
-		printf("\033[0m\n");
+		printf("\033[0m");
 }
 	
-	partOfMap += 1;
+	countPartOfMap += 1;
 	#ifndef WINDOWS
 		system("cls");
 	#else
@@ -105,42 +112,39 @@ void DrawPlace(int player,char icon, int x, int y){
 
 int main(int argc, char *argv[])
 {
-	int length = 3;
 	for(int i = 0; i < length; i++)
 	{
 		for(int j = 0; j < length; j++)
 		    {
-		   	 map[i][j] = '#';
+		   	 map[i][j] = mapSymbol;
 		    }
 	}
-	int x,y;
-	bool win;
-	int player = 1;
+	
 	DrawPlaceForMenu();
 	while(true){
 		printf("Игрок #%i",player);
 		cout << endl;
 		cout << "Введите номер строки: ";
-		cin >> x;
+		cin >> row;
 		cout << "Введите номер столбца: ";
-		cin >> y;
+		cin >> col;
 		badPlace = 0;
 		if(player == 1){
-			DrawPlace(player,'x',x,y);
+			DrawPlace(player,firstPlayerIcon, row, col);
 		}
 		else if(player == 2){
-			DrawPlace(player,'o',x,y);
+			DrawPlace(player, secondPlayerIcon, row, col);
 		}
-		win = WinState(player);
-		if (win){
+		ckeckIfWin = WinState(player);
+		if (ckeckIfWin){
 			break;
 		}
-		if(partOfMap == 8){
+		if(countPartOfMap == 8){
 			//окрашиваем текст ничья
-			printf("\033[31mНичья!\n");			printf("\033[0m\n");
+			printf("\033[31m");
+			cout << "Ничья!" << endl;			printf("\033[0m");
 			break;
 		}
-		
 		if(badPlace == 1){
 			player = 1;
 		}
@@ -148,10 +152,12 @@ int main(int argc, char *argv[])
 			player = 2;
 		}else{
 			if (player == 2){
-			player = 1;
+				player = 1;
 		}else{
 			player = 2;
-		}
+			}
 		}
 	}
 }
+
+

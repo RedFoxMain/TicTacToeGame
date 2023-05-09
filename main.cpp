@@ -29,7 +29,7 @@ char mapSymbol = '#';
 char firstPlayerIcon = 'x';
 char secondPlayerIcon = 'o';
 //задержка для метода sleep()
-int delay = 2;
+int  delayForSleep = 2;
 int badPlace = 0;
 //считает незанятые mapSymbol
 int countEmptyCells = 0;
@@ -163,7 +163,7 @@ void DrawPlace(int player,char playerIcon, int row, int col){
 		}
 		//Окрашиваем текст "Клетка занята"
 		printf("\033[31mКлетка занята!\n");
-		sleep(delay);
+		sleep(delayForSleep);
 		printf("\033[0m");
 }
 	// считаем сколько mapSymbol осталось. Это нужно для отслеживания ничьей

@@ -5,6 +5,7 @@
 const bool isWindows = true;
 
 #include <iostream>
+#include <conio.h>
 #include <string>
 #include <cstdlib>
 #include <cstdio>
@@ -74,7 +75,8 @@ void RowInput(){
     		    cout << "\033[31m";
         		cout << "Неверно введен row"<<endl;
         		cout << "\033[0m";
-    			cin.clear();
+    			if(isWindows) system("cls");
+			else system("clear");
     			cin.get();
 			}else{
 				row = rowInput;
@@ -89,7 +91,8 @@ void ColInput(){
     		    cout << "\033[31m";
         		cout << "Неверно введен col" << endl;
         		cout << "\033[0m";
-    			cin.clear();
+    			if(isWindows) system("cls");
+			else system("clear");
     			cin.get();
 			}else{
 				col = colInput;
@@ -169,11 +172,8 @@ void DrawPlace(int player,char playerIcon, int row, int col){
 	// считаем сколько mapSymbol осталось. Это нужно для отслеживания ничьей
 	countEmptyCells++;
 	//обновляем карту
-	#ifdef isWindows
-		system("cls");
-	#else
-		system("clear");
-	#endif
+	if(isWindows) system("cls");
+	else system("clear");
 	DrawBoard();
 }
 

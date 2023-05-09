@@ -31,7 +31,7 @@ char secondPlayerIcon = 'o';
 //задержка для метода sleep()
 int delay = 2;
 int badPlace = 0;
-//считает не занятые mapSymbol
+//считает незанятые mapSymbol
 int countEmptyCells = 0;
 bool win = false;
 char playerIcon;

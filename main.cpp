@@ -1,4 +1,4 @@
-//Сделанно RedFoxMain
+//Сделано RedFoxMain
 //github https://github.com/RedFoxMain
 
 //ВАЖНО: если вы работаете на Linux, то закомментируйте первую строку после этого комментария

@@ -10,7 +10,7 @@ const bool isWindows = true;
 #include <cstdio>
 #include <cctype>
 
-#ifdef isWindows
+#if isWindows
 #include <windows.h>
 #else
 #include <unistd.h>
@@ -168,7 +168,7 @@ void DrawPlace(int player,char playerIcon, int row, int col){
 	// считаем сколько mapSymbol осталось. Это нужно для отслеживания ничьей
 	countEmptyCells++;
 	//обновляем карту
-	#ifdef isWindows
+	#if isWindows
 		system("cls");
 	#else
 		system("clear");

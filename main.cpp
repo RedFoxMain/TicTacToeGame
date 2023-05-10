@@ -17,7 +17,6 @@ const bool isWindows = true;
 #endif
 
 
-using namespace std;
 // переменные для игры
 //длинна карты
 const int length = 3;
@@ -29,9 +28,9 @@ char mapSymbol = '#';
 char firstPlayerIcon = 'x';
 char secondPlayerIcon = 'o';
 //задержка для метода sleep()
-int  delayForSleep = 2;
+int delayForSleep = 2;
 int badPlace = 0;
-//считает незанятые mapSymbol
+//считает не занятые mapSymbol
 int countEmptyCells = 0;
 bool win = false;
 char playerIcon;
@@ -46,9 +45,9 @@ void DrawBoard(){
 	    {
 	   	 for(int j = 0; j < length; j++)
 	   	 {
-	   	 	cout << map[i][j];
+	   	 	std::cout << map[i][j];
 	   	 }
-	   	 cout << endl;
+	   	 std::cout << std::endl;
 	    }
 }
 //заполняем карту
@@ -68,33 +67,33 @@ void DrawPlaceForMenu(){
 ///////////////////
 void RowInput(){
 	do {
-    		cout << "Введите номер строки: ";
-    		cin >> rowInput;
-    		if (!(cin.good())){
-    		    cout << "\033[31m";
-        		cout << "Неверно введен row"<<endl;
-        		cout << "\033[0m";
-    			cin.clear();
-    			cin.get();
+    		std::cout << "Введите номер строки: ";
+    		std::cin >> rowInput;
+    		if (!(std::cin.good())){
+    		    std::cout << "\033[31m";
+        		std::cout << "Неверно введен row"<<std::endl;
+        		std::cout << "\033[0m";
+    			std::cin.clear();
+    			std::cin.ignore();
 			}else{
 				row = rowInput;
 			}
-		} while (!(cin.good()));
+		} while (!(std::cin.good()));
 }
 void ColInput(){
 	do {
-    		cout << "Введите номер столбца: ";
-    		cin >> colInput;
-    		if (!(cin.good())){
-    		    cout << "\033[31m";
-        		cout << "Неверно введен col" << endl;
-        		cout << "\033[0m";
-    			cin.clear();
-    			cin.get();
+    		std::cout << "Введите номер столбца: ";
+    		std::cin >> colInput;
+    		if (!(std::cin.good())){
+    		    std::cout << "\033[31m";
+        		std::cout << "Неверно введен col" << std::endl;
+        		std::cout << "\033[0m";
+    			std::cin.clear();
+    			std::cin.ignore();
 			}else{
 				col = colInput;
 			}
-		} while (!(cin.good()));
+		} while (!(std::cin.good()));
 	
 }
 // очерёдность хода
@@ -118,7 +117,7 @@ bool NoBodyWin(){
 	if(countEmptyCells == 8){
 			//окрашиваем текст ничья
 			printf("\033[31m");
-			cout << "Ничья!" << endl;			printf("\033[0m");
+			std::cout << "Ничья!" << std::endl;			printf("\033[0m");
 			return true;
 	}
 	return false;
@@ -141,10 +140,10 @@ bool WinState(int player){
     || (map[0][2] == playerIcon && map[1][2] == playerIcon && map[2][2] == playerIcon)
     || (map[0][0] == playerIcon && map[1][1] == playerIcon && map[2][2] == playerIcon)
     || (map[0][2] == playerIcon && map[1][1] == playerIcon && map[2][0] == playerIcon)) {
-    cout << "\033[31m";
-    cout << "Игрок номер " << player << " закончил партию быстрее!" << endl;
-    cout << "Победа игрока номер " << player << endl;
-    cout << "\033[0m";
+    std::cout << "\033[31m";
+    std::cout << "Игрок номер " << player << " закончил партию быстрее!" << std::endl;
+    std::cout << "Победа игрока номер " << player << std::endl;
+    std::cout << "\033[0m";
     return true;
 }
 return false;
@@ -185,16 +184,16 @@ int main(int argc, char *argv[])
 	int player = 1;
 	while(true){
 		printf("Игрок #%i",player);
-		cout << endl;
+		std::cout << std::endl;
 		//получаем row
     	RowInput();
     	//получаем col
     	ColInput();
 	    // Проверяем, что клетка не заполнена
 	    if (map[row][col] != mapSymbol){
-	        cout << "\033[31m";
-	        cout << "Клетка уже заполнена.\nПопробуйте еще раз." << endl;
-	        cout << "\033[0m";
+	        std::cout << "\033[31m";
+	        std::cout << "Клетка уже заполнена.\nПопробуйте еще раз." << std::endl;
+	        std::cout << "\033[0m";
 	        continue;
 	    }
 	    //ход активного игрока
@@ -220,4 +219,3 @@ int main(int argc, char *argv[])
 		player = NextPlayer(player);
 	}
 }
-
